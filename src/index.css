@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 14% 8%;
+    --foreground: 40 20% 95%;
+
+    --card: 220 12% 12%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 220 12% 12%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 180 70% 45%;
+    --primary-foreground: 220 14% 8%;
+
+    --secondary: 220 10% 16%;
+    --secondary-foreground: 40 20% 90%;
+
+    --muted: 220 10% 18%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 180 70% 45%;
+    --accent-foreground: 220 14% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 180 70% 45%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 14% 8%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 180 70% 45%;
+    --sidebar-primary-foreground: 220 14% 8%;
+    --sidebar-accent: 220 10% 16%;
+    --sidebar-accent-foreground: 40 20% 90%;
+    --sidebar-border: 220 10% 20%;
+    --sidebar-ring: 180 70% 45%;
+
+    /* Custom tokens */
+    --gold: 180 70% 45%;
+    --gold-light: 180 55% 65%;
+    --gold-dark: 180 75% 30%;
+    --surface: 220 12% 11%;
+    --surface-hover: 220 12% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(var(--gold))] to-[hsl(var(--gold-light))];
+  }
+
+  .glow {
+    box-shadow: 0 0 40px -10px hsl(var(--gold) / 0.3);
+  }
+
+  .glass {
+    @apply backdrop-blur-xl bg-[hsl(var(--surface)/0.7)] border border-[hsl(var(--border)/0.5)];
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--gold) / 0.5);
+}
