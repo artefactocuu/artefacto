@@ -49,7 +49,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: isMobile ? 40 : 120 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: isMobile ? 0.5 : 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.85] tracking-tighter will-change-transform"
+            className="font-display text-[2.6rem] sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.85] tracking-tighter will-change-transform"
           >
             {t("hero.title1")}
           </motion.h1>
