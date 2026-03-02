@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useLang } from "@/contexts/LangContext";
 import { Check, X, ArrowRight, Star } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface PackageDef {
   key: string;
@@ -50,15 +51,16 @@ const packages: PackageDef[] = [
 
 const Packages = () => {
   const { t } = useLang();
+  const isMobile = useIsMobile();
 
   return (
     <section id="paquetes" className="py-32 bg-card/50">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-20"
         >
           <span className="inline-block mb-4 text-xs font-medium uppercase tracking-widest text-primary">
@@ -71,15 +73,14 @@ const Packages = () => {
           {packages.map((pkg, i) => (
             <motion.div
               key={pkg.key}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className={`relative rounded-2xl border p-8 transition-all duration-500 ${
-                pkg.highlighted
-                  ? "border-primary bg-gradient-to-b from-primary/10 to-card glow scale-[1.02]"
+              transition={{ duration: 0.4, delay: isMobile ? 0 : i * 0.15 }}
+              className={`relative rounded-2xl border p-8 transition-colors duration-300 ${pkg.highlighted
+                  ? "border-primary bg-gradient-to-b from-primary/10 to-card scale-[1.02]"
                   : "border-border bg-card hover:border-muted-foreground/30"
-              }`}
+                }`}
             >
               {pkg.highlighted && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground">
@@ -112,11 +113,10 @@ const Packages = () => {
 
               <a
                 href="#contacto"
-                className={`group flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-all duration-300 ${
-                  pkg.highlighted
-                    ? "bg-primary text-primary-foreground hover:shadow-[0_0_30px_-8px_hsl(var(--gold)/0.5)]"
+                className={`group flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-colors duration-300 ${pkg.highlighted
+                    ? "bg-primary text-primary-foreground"
                     : "border border-border text-foreground hover:border-primary hover:text-primary"
-                }`}
+                  }`}
               >
                 {t("packages.cta")}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

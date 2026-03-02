@@ -3,10 +3,12 @@ import { useLang } from "@/contexts/LangContext";
 import { Globe, Menu, X } from "lucide-react";
 import ArtefactoLogo from "@/components/ArtefactoLogo";
 import { useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const Navbar = () => {
   const { lang, toggleLang, t } = useLang();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const links = [
     { key: "nav.services", href: "#servicios" },
@@ -17,11 +19,11 @@ const Navbar = () => {
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 glass"
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 border-b border-[hsl(var(--border)/0.5)] ${isMobile
+          ? "bg-[hsl(var(--surface)/0.95)]"
+          : "backdrop-blur-xl bg-[hsl(var(--surface)/0.7)]"
+        }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <a href="#" className="flex items-center gap-3">
@@ -35,7 +37,7 @@ const Navbar = () => {
             <a
               key={link.key}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {t(link.key)}
             </a>
@@ -45,7 +47,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-primary hover:border-primary transition-all duration-300"
+            className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground active:text-primary transition-colors duration-200"
             aria-label="Toggle language"
           >
             <Globe className="h-3.5 w-3.5" />
@@ -64,27 +66,22 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden glass border-t border-border"
-        >
+        <div className="md:hidden border-t border-border bg-[hsl(var(--surface)/0.95)]">
           <div className="flex flex-col gap-4 px-6 py-6">
             {links.map((link) => (
               <a
                 key={link.key}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm font-medium text-muted-foreground active:text-primary transition-colors"
               >
                 {t(link.key)}
               </a>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.nav>
+    </nav>
   );
 };
 

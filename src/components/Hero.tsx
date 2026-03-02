@@ -1,35 +1,41 @@
 import { motion } from "framer-motion";
 import { useLang } from "@/contexts/LangContext";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const Hero = () => {
   const { t } = useLang();
+  const isMobile = useIsMobile();
 
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
       {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30" />
-      
-      {/* Animated accent lines */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-        className="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent origin-left"
-      />
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
-        className="absolute top-2/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent origin-right"
-      />
+
+      {/* Animated accent lines — skip on mobile */}
+      {!isMobile && (
+        <>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+            className="absolute top-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent origin-left"
+          />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+            className="absolute top-2/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent origin-right"
+          />
+        </>
+      )}
 
       <div className="relative z-10 container mx-auto px-6">
         {/* Top label */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="mb-12"
         >
           <span className="text-xs font-medium uppercase tracking-[0.3em] text-primary">
@@ -37,23 +43,23 @@ const Hero = () => {
           </span>
         </motion.div>
 
-        {/* Giant typography */}
+        {/* Giant typography — lighter animation on mobile */}
         <div className="overflow-hidden mb-8">
           <motion.h1
-            initial={{ y: 120 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.85] tracking-tighter"
+            initial={{ opacity: 0, y: isMobile ? 40 : 120 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.85] tracking-tighter will-change-transform"
           >
             {t("hero.title1")}
           </motion.h1>
         </div>
         <div className="overflow-hidden mb-16">
           <motion.h1
-            initial={{ y: 120 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.85] tracking-tighter text-gradient"
+            initial={{ opacity: 0, y: isMobile ? 40 : 120 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold leading-[0.85] tracking-tighter text-gradient will-change-transform"
           >
             {t("hero.title2")}
           </motion.h1>
@@ -62,23 +68,23 @@ const Hero = () => {
         {/* Description + CTA row */}
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
             className="max-w-md text-base text-muted-foreground leading-relaxed"
           >
             {t("hero.description")}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
             className="flex items-center gap-6"
           >
             <a
               href="#contacto"
-              className="group flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-display text-sm font-semibold text-primary-foreground transition-all duration-300 hover:shadow-[0_0_40px_-10px_hsl(var(--gold)/0.5)] hover:scale-105"
+              className="group flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-display text-sm font-semibold text-primary-foreground transition-colors duration-300"
             >
               {t("hero.cta")}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -97,7 +103,7 @@ const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <ChevronDown className="h-6 w-6 text-muted-foreground animate-bounce" />

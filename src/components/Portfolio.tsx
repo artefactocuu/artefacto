@@ -3,6 +3,7 @@ import { useLang } from "@/contexts/LangContext";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const projects = [
   {
@@ -39,11 +40,13 @@ const projects = [
 
 const Portfolio = () => {
   const { lang, t } = useLang();
+  const isMobile = useIsMobile();
   const [current, setCurrent] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
     skipSnaps: false,
+    dragFree: isMobile,
   });
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
@@ -73,10 +76,10 @@ const Portfolio = () => {
     <section id="portafolio" className="py-32 overflow-hidden">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="inline-block mb-4 text-xs font-medium uppercase tracking-widest text-primary">
@@ -86,41 +89,34 @@ const Portfolio = () => {
         </motion.div>
 
         {/* Carousel */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative max-w-6xl mx-auto"
-        >
+        <div className="relative max-w-6xl mx-auto">
           {/* Embla viewport */}
           <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
-            <div className="flex">
+            <div className="flex will-change-transform">
               {projects.map((project, i) => (
                 <div
                   key={project.title}
-                  className="flex-[0_0_85%] md:flex-[0_0_70%] min-w-0 px-3"
+                  className="flex-[0_0_90%] md:flex-[0_0_70%] min-w-0 px-2 md:px-3"
                 >
                   <div
-                    className={`relative overflow-hidden rounded-2xl border transition-all duration-500 ${i === current
-                      ? "border-primary/40 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.2)]"
-                      : "border-border/50 opacity-50 scale-[0.95]"
+                    className={`relative overflow-hidden rounded-2xl border will-change-transform transition-opacity duration-300 ${i === current
+                        ? "border-primary/40 opacity-100"
+                        : "border-border/50 opacity-40"
                       }`}
+                    style={!isMobile && i !== current ? { transform: "scale(0.95)" } : undefined}
                   >
                     <div className="aspect-[16/9] overflow-hidden">
                       <img
                         src={project.image}
                         alt={project.title}
-                        className={`w-full h-full object-cover transition-transform duration-1000 ${i === current ? "scale-100" : "scale-110"
-                          }`}
+                        className="w-full h-full object-cover"
                         loading="lazy"
                       />
                     </div>
                     {/* Gradient overlay on active */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent transition-opacity duration-500 ${i === current ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
+                    {i === current && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    )}
                   </div>
                 </div>
               ))}
@@ -130,29 +126,29 @@ const Portfolio = () => {
           {/* Navigation arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute left-0 md:-left-5 top-1/2 -translate-y-1/2 z-10 rounded-full border border-border/60 bg-background/80 backdrop-blur-sm p-3 text-muted-foreground hover:text-primary hover:border-primary/60 transition-all duration-300 hover:scale-110"
+            className="absolute left-1 md:-left-5 top-1/2 -translate-y-1/2 z-10 rounded-full border border-border/60 bg-background/90 p-2.5 md:p-3 text-muted-foreground active:text-primary transition-colors duration-200"
             aria-label="Previous project"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-0 md:-right-5 top-1/2 -translate-y-1/2 z-10 rounded-full border border-border/60 bg-background/80 backdrop-blur-sm p-3 text-muted-foreground hover:text-primary hover:border-primary/60 transition-all duration-300 hover:scale-110"
+            className="absolute right-1 md:-right-5 top-1/2 -translate-y-1/2 z-10 rounded-full border border-border/60 bg-background/90 p-2.5 md:p-3 text-muted-foreground active:text-primary transition-colors duration-200"
             aria-label="Next project"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
-        </motion.div>
+        </div>
 
         {/* Active project info + dots */}
         <div className="mt-10 text-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
             >
               <p className="text-xs text-primary font-medium uppercase tracking-[0.2em] mb-2">
                 {activeProject.category[lang]}
@@ -169,9 +165,9 @@ const Portfolio = () => {
               <button
                 key={i}
                 onClick={() => emblaApi?.scrollTo(i)}
-                className={`h-2 rounded-full transition-all duration-500 ${i === current
-                  ? "w-8 bg-primary"
-                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                className={`h-2 rounded-full transition-all duration-300 ${i === current
+                    ? "w-8 bg-primary"
+                    : "w-2 bg-muted-foreground/30"
                   }`}
                 aria-label={`Go to project ${i + 1}`}
               />

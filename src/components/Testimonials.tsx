@@ -56,10 +56,10 @@ const Testimonials = () => {
     <section id="testimonios" className="py-32 bg-card/50">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="inline-block mb-4 text-xs font-medium uppercase tracking-widest text-primary">
@@ -71,10 +71,9 @@ const Testimonials = () => {
         <div className="max-w-3xl mx-auto">
           <motion.div
             key={current}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
             className="text-center"
           >
             <Quote className="h-10 w-10 text-primary/30 mx-auto mb-8" />
@@ -90,7 +89,7 @@ const Testimonials = () => {
           <div className="flex items-center justify-center gap-4 mt-12">
             <button
               onClick={prev}
-              className="rounded-full border border-border p-2 text-muted-foreground hover:text-primary hover:border-primary transition-all"
+              className="rounded-full border border-border p-2 text-muted-foreground active:text-primary transition-colors duration-200"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -108,7 +107,7 @@ const Testimonials = () => {
             </div>
             <button
               onClick={next}
-              className="rounded-full border border-border p-2 text-muted-foreground hover:text-primary hover:border-primary transition-all"
+              className="rounded-full border border-border p-2 text-muted-foreground active:text-primary transition-colors duration-200"
               aria-label="Next testimonial"
             >
               <ChevronRight className="h-5 w-5" />
