@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useLang } from "@/contexts/LangContext";
 import { Globe, Menu, X } from "lucide-react";
-import ArtefactumLogo from "@/components/ArtefactumLogo";
+import ArtefactoLogo from "@/components/ArtefactoLogo";
 import { useState } from "react";
 
 const Navbar = () => {
@@ -25,8 +25,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <a href="#" className="flex items-center gap-3">
-          <ArtefactumLogo className="h-8 w-8 text-primary" />
-          <span className="font-display text-xl font-bold tracking-tight">ARTEFACTUM</span>
+          <ArtefactoLogo className="h-8 w-8 text-foreground" />
+          <span className="text-xl font-bold tracking-tight" style={{ fontFamily: "'Syne', sans-serif" }}>ARTEFACTO</span>
         </a>
 
         {/* Desktop links */}

@@ -26,7 +26,7 @@ const Contact = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="mailto:contacto@artefactum.com"
+              href="mailto:contacto@artefacto.com"
               className="group flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-display text-sm font-semibold text-primary-foreground transition-all duration-300 hover:shadow-[0_0_40px_-10px_hsl(var(--gold)/0.5)] hover:scale-105"
             >
               <Mail className="h-4 w-4" />
@@ -34,10 +34,10 @@ const Contact = () => {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
-              href="mailto:contacto@artefactum.com"
+              href="mailto:contacto@artefacto.com"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              contacto@artefactum.com
+              contacto@artefacto.com
             </a>
           </div>
         </motion.div>

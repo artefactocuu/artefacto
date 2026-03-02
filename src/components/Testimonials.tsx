@@ -8,8 +8,8 @@ const testimonials = [
     name: "María González",
     role: { es: "CEO, TechStart MX", en: "CEO, TechStart MX" },
     text: {
-      es: "Artefactum transformó completamente nuestra presencia digital. Los resultados superaron nuestras expectativas en menos de 3 meses.",
-      en: "Artefactum completely transformed our digital presence. Results exceeded our expectations in less than 3 months.",
+      es: "Artefacto transformó completamente nuestra presencia digital. Los resultados superaron nuestras expectativas en menos de 3 meses.",
+      en: "Artefacto completely transformed our digital presence. Results exceeded our expectations in less than 3 months.",
     },
   },
   {
@@ -100,9 +100,8 @@ const Testimonials = () => {
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current ? "w-8 bg-primary" : "w-2 bg-muted-foreground/30"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${i === current ? "w-8 bg-primary" : "w-2 bg-muted-foreground/30"
+                    }`}
                   aria-label={`Testimonial ${i + 1}`}
                 />
               ))}
